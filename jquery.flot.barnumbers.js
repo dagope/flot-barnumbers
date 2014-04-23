@@ -7,9 +7,12 @@
  *         showNumbers: boolean (left for compatibility)
  *         numbers : {
  *             show : boolean,
- *             alignX : number or function,
- *             alignY : number or function,
- *						 color	: string color hexadecimal (ej : '#ffffff')
+ *             xAlign : number or function,
+ *             yAlign : number or function,
+ *						 color	: string color (ej : 'blue' , '#ffffff') ,
+ *						 font	  : string font (ej : '40pt Calibri' , 'normal 36px Arial') ,
+ *						 offsetTop :  number plot.getPlotOffset().top,
+ *						 offsetLeft : number plot.getPlotOffset().left
  *         }
  *     }
  * }
@@ -36,6 +39,7 @@
             numbers.horizontalShift = 1;
         }
         numbers.color = numbers.color || '#000000';
+        numbers.font  = numbers.font || '';
     }
 
     function draw(plot, ctx){
@@ -71,8 +75,11 @@
                         text = points[barNumber];
                     }
                     var c = plot.p2c(point);
-                    ctx.fillStyle = series.bars.numbers.color;
-                    ctx.fillText(text.toString(10), c.left + offset.left, c.top + offset.top)
+                    var offsetTop = series.bars.numbers.offsetTop || offset.top;
+					var offsetLeft = series.bars.numbers.offsetLeft || offset.left;
+					ctx.fillStyle = series.bars.numbers.color;
+					ctx.font = series.bars.numbers.font;                    
+					ctx.fillText(text.toString(10), c.left + offsetLeft, c.top + offsetTop)
                 }
             }
         });
