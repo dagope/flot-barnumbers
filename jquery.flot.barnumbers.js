@@ -9,6 +9,7 @@
  *             show : boolean,
  *             alignX : number or function,
  *             alignY : number or function,
+ *						 color	: string color hexadecimal (ej : '#ffffff')
  *         }
  *     }
  * }
@@ -34,6 +35,7 @@
             numbers.yAlign = numbers.yAlign || function(y){ return y / 2; };
             numbers.horizontalShift = 1;
         }
+        numbers.color = numbers.color || '#000000';
     }
 
     function draw(plot, ctx){
@@ -69,6 +71,7 @@
                         text = points[barNumber];
                     }
                     var c = plot.p2c(point);
+                    ctx.fillStyle = series.bars.numbers.color;
                     ctx.fillText(text.toString(10), c.left + offset.left, c.top + offset.top)
                 }
             }
